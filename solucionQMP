@@ -1,0 +1,93 @@
+clase Usuario{
+	List<Prenda> prendas;
+
+	void cargarPrenda(Tipo t, Categoria c, Materia m, Color cP){
+		prendas.add(BuilderPrenda.crearPrendaUnicolor(t,c,m,Cp));
+	}
+
+	void cargarPrenda(Tipo t, Categoria c, Materia m, Color cP, Color cS){
+		prendas.add(BuilderPrenda.crearPrendaBicolor(t,c,m,Cp,Cs));
+	}
+
+
+	Categoria getCategoria(Prenda prenda){
+		return prenda.categoria();
+	}
+}
+
+clase BuilderPrenda{
+	Tipo tipo;
+	Categoria categoria;
+	Material material;
+	Color colorPrincipal;
+	Color colorSecundario;
+	
+	void cargarTipo(Tipo t){tipo = t);
+	void cargarCategoria(Categoria c){
+	
+	if(c == tipo.getCategoria()){
+		categoria = c;
+	}else{tirarExcepcionPorCategoriaIncorrecta;}
+}	  
+	
+PrendaUnicolor crearPrendaUnicolor(t,c,m,cP){
+	this.cargarTipo(t);
+	this.cargarCategoria(c);
+	return new Prenda(t,c,m,cP);
+	}	
+
+PrendaBicolor crearPrendaBicolor(t,c,m,cP,cS){
+	this.cargarTipo(t);
+	this.cargarCategoria(c);
+	return new Prenda(t,c,m,cP,cS);
+	}	
+}
+
+//Defino tipos
+clase abstracta Tipo{
+	Categoria categoria;
+	Categoria getCategoria();
+}
+clase Remera hereda Tipo{
+	Categoria categoria = parteSuperior;
+
+}
+clase Pantalon hereda Tipo{
+	Categoria categoria = inferior;
+}
+...etc con todos los Tipos posibles
+
+
+enum Categoria{ parteSuperior, parteInferior,accesorio, calzado}
+
+
+clase PrendaUnicolor{
+	Prenda(Tipo tipo, Categoria categoria, Material material, 	Color colorPrincipal){
+
+		this.tipo = tipo;
+		this.categoria= categoria;
+		this.material = material;
+		this.colorPrincipal = colorPrincipal ;
+	}
+
+	Tipo tipo;
+	Categoria categoria;
+	Material material;
+	Color colorPrincipal;
+	
+}
+
+clase PrendaBicolor extends PrendaUnicolor{
+	PrendaBicolor(Tipo tipo,Categoria categoria, Material material, Color colorPrincipal,Color colorSecundario){
+		super(tipo,categoria,material,colorPrincipal);
+		this.colorSecundario = colorSecundario;
+	}
+	Tipo tipo;
+	Categoria categoria;
+	Material material;
+	Color colorPrincipal;
+	Color colorSecundario;
+
+}
+
+
